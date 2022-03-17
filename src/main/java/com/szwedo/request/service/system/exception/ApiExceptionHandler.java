@@ -13,16 +13,23 @@ import java.time.ZonedDateTime;
 public class ApiExceptionHandler {
 
   @ExceptionHandler(value = {DeviceNotFoundException.class})
-  public ResponseEntity<Object> handleDeviceNotFoundException(DeviceNotFoundException e){
-    HttpStatus status=HttpStatus.NOT_FOUND;
-    ApiException apiException=getApiException(status, e.getMessage());
-    return new ResponseEntity<>(apiException,status);
+  public ResponseEntity<Object> handleDeviceNotFoundException(DeviceNotFoundException e) {
+    HttpStatus status = HttpStatus.NOT_FOUND;
+    ApiException apiException = getApiException(status, e.getMessage());
+    return new ResponseEntity<>(apiException, status);
   }
 
-  @ExceptionHandler(value = { MethodArgumentNotValidException.class })
+  @ExceptionHandler(value = {InvoiceNotFoundException.class})
+  public ResponseEntity<Object> handleInvoiceNotFoundException(InvoiceNotFoundException e) {
+    HttpStatus status = HttpStatus.NOT_FOUND;
+    ApiException apiException = getApiException(status, e.getMessage());
+    return new ResponseEntity<>(apiException, status);
+  }
+
+  @ExceptionHandler(value = {MethodArgumentNotValidException.class})
   ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
     HttpStatus status = HttpStatus.BAD_REQUEST;
-    ApiException apiException = getApiException(status,"Invalid Json fields.");
+    ApiException apiException = getApiException(status, "Invalid Json fields.");
     return new ResponseEntity<>(apiException, status);
   }
 

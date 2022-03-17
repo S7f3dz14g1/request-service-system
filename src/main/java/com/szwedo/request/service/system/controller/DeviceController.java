@@ -21,7 +21,7 @@ public class DeviceController {
   }
 
   @PostMapping("/")
-  public void addDevice(@Valid @RequestBody DeviceRequest device){
+  public void addDevice(@Valid @RequestBody DeviceRequest device) {
     service.addDevice(DeviceEntity.builder()
         .device_type(device.device_type())
         .destroys(device.destroys())

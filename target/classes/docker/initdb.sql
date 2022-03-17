@@ -21,7 +21,7 @@ INSERT INTO Users values (2, 'MieczyslawG', 'password123', 'ADMIN');
 
 CREATE TABLE IF NOT EXISTS Invoice(
     id    SERIAL    PRIMARY    KEY,
-    price    numeric(6,2) NOT NULL UNIQUE,
+    price    numeric(6,2) NOT NULL,
     tax numeric(3) not null,
     discount numeric(6,2) not null
     );
