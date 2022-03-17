@@ -33,6 +33,13 @@ public class ApiExceptionHandler {
     return new ResponseEntity<>(apiException, status);
   }
 
+  @ExceptionHandler(value = {UserNotFoundException.class})
+  ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException e) {
+    HttpStatus status = HttpStatus.BAD_REQUEST;
+    ApiException apiException = getApiException(status, e.getMessage());
+    return new ResponseEntity<>(apiException, status);
+  }
+
   private ApiException getApiException(HttpStatus status, String message) {
     return ApiException.builder()
         .message(message)
