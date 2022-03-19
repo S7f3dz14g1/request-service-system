@@ -35,7 +35,14 @@ public class ApiExceptionHandler {
 
   @ExceptionHandler(value = {UserNotFoundException.class})
   ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException e) {
-    HttpStatus status = HttpStatus.BAD_REQUEST;
+    HttpStatus status = HttpStatus.NOT_FOUND;
+    ApiException apiException = getApiException(status, e.getMessage());
+    return new ResponseEntity<>(apiException, status);
+  }
+
+  @ExceptionHandler(value = {ClientNotFoundException.class})
+  ResponseEntity<Object> handleClientNotFoundException(ClientNotFoundException e) {
+    HttpStatus status = HttpStatus.NOT_FOUND;
     ApiException apiException = getApiException(status, e.getMessage());
     return new ResponseEntity<>(apiException, status);
   }

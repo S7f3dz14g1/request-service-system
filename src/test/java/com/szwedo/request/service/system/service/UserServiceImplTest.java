@@ -4,7 +4,6 @@ import com.szwedo.request.service.system.dao.UsersRepository;
 import com.szwedo.request.service.system.entity.UserEntity;
 import com.szwedo.request.service.system.exception.UserNotFoundException;
 import com.szwedo.request.service.system.model.UserDao;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
