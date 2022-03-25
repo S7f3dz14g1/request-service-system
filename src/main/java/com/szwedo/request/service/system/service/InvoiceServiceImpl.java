@@ -28,7 +28,7 @@ class InvoiceServiceImpl implements InvoiceService {
   }
 
   @Override
-  public void addDevice(InvoiceEntity device) {
+  public void updateInvoice(InvoiceEntity device) {
     repository.save(device);
   }
 }

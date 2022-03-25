@@ -32,19 +32,27 @@ public class DeviceServiceImplTest {
     DeviceDto expectedDevice = DeviceDto.builder()
         .id(deviceId)
         .device_type("type")
-        .destroys("dest")
+        .damages("dest")
+        .battery(true)
+        .charger(true)
+        .password("")
+        .orderid(1L)
         .model("model")
         .build();
     DeviceEntity entity = DeviceEntity.builder()
         .id(deviceId)
         .device_type("type")
-        .destroys("dest")
+        .damages("dest")
+        .battery(true)
+        .charger(true)
+        .password("")
+        .orderId(1L)
         .model("model")
         .build();
     //when
     when(repository.findById(deviceId)).thenReturn(Optional.of(entity));
     //then
-    assertEquals(service.getDeviceById(deviceId),expectedDevice);
+    assertEquals(service.getDeviceById(deviceId), expectedDevice);
   }
 
   @Test
@@ -54,28 +62,36 @@ public class DeviceServiceImplTest {
     //when
     when(repository.findById(deviceId)).thenReturn(Optional.empty());
     //then
-    assertThrows(DeviceNotFoundException.class,()->{
+    assertThrows(DeviceNotFoundException.class, () -> {
       service.getDeviceById(deviceId);
     });
   }
 
   @Test
-  public void should_add_new_device(){
+  public void should_add_new_device() {
     //given
-    ArgumentCaptor<DeviceEntity> argument=ArgumentCaptor.forClass(DeviceEntity.class);
-    DeviceEntity entity=DeviceEntity.builder()
+    ArgumentCaptor<DeviceEntity> argument = ArgumentCaptor.forClass(DeviceEntity.class);
+    DeviceEntity entity = DeviceEntity.builder()
         .id(1L)
         .device_type("type")
-        .destroys("dest")
+        .damages("dest")
+        .battery(true)
+        .charger(true)
+        .password("")
+        .orderId(1L)
         .model("model")
         .build();
     //when
     service.addDevice(entity);
     //then
     verify(repository).save(argument.capture());
-    assertEquals(entity.id(),argument.getValue().id());
-    assertEquals(entity.destroys(),argument.getValue().destroys());
-    assertEquals(entity.device_type(),argument.getValue().device_type());
-    assertEquals(entity.model(),argument.getValue().model());
+    assertEquals(entity.id(), argument.getValue().id());
+    assertEquals(entity.damages(), argument.getValue().damages());
+    assertEquals(entity.device_type(), argument.getValue().device_type());
+    assertEquals(entity.model(), argument.getValue().model());
+    assertEquals(entity.battery(), argument.getValue().battery());
+    assertEquals(entity.charger(), argument.getValue().charger());
+    assertEquals(entity.password(), argument.getValue().password());
+    assertEquals(entity.orderId(), argument.getValue().orderId());
   }
 }

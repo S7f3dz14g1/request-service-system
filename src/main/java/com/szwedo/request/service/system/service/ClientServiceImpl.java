@@ -3,7 +3,7 @@ package com.szwedo.request.service.system.service;
 import com.szwedo.request.service.system.dao.ClientRepository;
 import com.szwedo.request.service.system.entity.ClientEntity;
 import com.szwedo.request.service.system.exception.ClientNotFoundException;
-import com.szwedo.request.service.system.model.ClientDto;
+import com.szwedo.request.service.system.model.ClientDao;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +19,13 @@ public class ClientServiceImpl implements ClientService {
   }
 
   @Override
-  public ClientDto getUserDetailsById(Long id) {
+  public ClientDao getUserDetailsById(Long id) {
     return repository.findById(id)
         .stream()
-        .map(entity -> ClientDto.builder()
+        .map(entity -> ClientDao.builder()
             .id(entity.id())
-            .firstName(entity.firstName())
-            .lastName(entity.lastName())
+            .firstName(entity.firstname())
+            .lastName(entity.lastname())
             .email(entity.email())
             .phone(entity.phone())
             .build())

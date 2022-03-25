@@ -1,6 +1,5 @@
 package com.szwedo.request.service.system.service;
 
-import com.szwedo.request.service.system.controller.InvoiceRequest;
 import com.szwedo.request.service.system.dao.InvoiceRepository;
 import com.szwedo.request.service.system.entity.InvoiceEntity;
 import com.szwedo.request.service.system.exception.InvoiceNotFoundException;
@@ -11,7 +10,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.relational.core.sql.In;
 
 import java.util.Optional;
 
@@ -57,7 +55,7 @@ class InvoiceServiceImplTest {
         .tax(23)
         .price(155.0).build();
     //when
-    service.addDevice(entity);
+    service.updateInvoice(entity);
     //then
     verify(repository).save(argument.capture());
     assertEquals(entity.tax(),argument.getValue().tax());

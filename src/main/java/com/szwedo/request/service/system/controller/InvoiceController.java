@@ -16,13 +16,14 @@ public class InvoiceController {
   private final InvoiceService service;
 
   @GetMapping("/{id}")
-  public InvoiceDao getInvoiceById(@PathVariable("id") Long id){
+  public InvoiceDao getInvoiceById(@PathVariable("id") Long id) {
     return service.getInvoiceById(id);
   }
 
   @PostMapping("/")
-  public void addInvoice(@Valid @RequestBody InvoiceRequest invoice){
-    service.addDevice(InvoiceEntity.builder()
+  public void updateInvoice(@Valid @RequestBody InvoiceRequest invoice) {
+    service.updateInvoice(InvoiceEntity.builder()
+        .id(invoice.id())
         .tax(invoice.tax())
         .price(invoice.price())
         .discount(invoice.discount())

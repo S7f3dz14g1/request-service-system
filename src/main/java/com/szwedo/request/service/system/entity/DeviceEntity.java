@@ -2,14 +2,21 @@ package com.szwedo.request.service.system.entity;
 
 import lombok.Builder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.lang.NonNull;
+
+import javax.validation.constraints.NotNull;
 
 @Table("device")
 public record DeviceEntity(@Id Long id,
-                           @NonNull String device_type,
+                           @NotNull String device_type,
                            String model,
-                           String destroys) {
+                           @NotNull String damages,
+                           @NotNull boolean battery,
+                           @NotNull boolean charger,
+                           @NotNull String password,
+                           @Column("orderid")
+                           @NotNull Long orderId) {
 
   @Builder
   public DeviceEntity {

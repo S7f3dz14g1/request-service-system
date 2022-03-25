@@ -4,7 +4,8 @@ import lombok.Builder;
 
 import javax.validation.constraints.NotNull;
 
-public record InvoiceRequest(@NotNull Double price,
+public record InvoiceRequest(@NotNull Long id,
+                             @NotNull Double price,
                              @NotNull Integer tax,
                              @NotNull Double discount) {
   @Builder

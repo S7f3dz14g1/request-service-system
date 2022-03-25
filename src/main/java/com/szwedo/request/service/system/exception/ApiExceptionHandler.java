@@ -40,8 +40,22 @@ public class ApiExceptionHandler {
     return new ResponseEntity<>(apiException, status);
   }
 
+  @ExceptionHandler(value = {OrderNotFoundException.class})
+  ResponseEntity<Object> handleOrderNotFoundException(OrderNotFoundException e) {
+    HttpStatus status = HttpStatus.NOT_FOUND;
+    ApiException apiException = getApiException(status, e.getMessage());
+    return new ResponseEntity<>(apiException, status);
+  }
+
   @ExceptionHandler(value = {ClientNotFoundException.class})
   ResponseEntity<Object> handleClientNotFoundException(ClientNotFoundException e) {
+    HttpStatus status = HttpStatus.NOT_FOUND;
+    ApiException apiException = getApiException(status, e.getMessage());
+    return new ResponseEntity<>(apiException, status);
+  }
+
+  @ExceptionHandler(value = {TechnicianNotFoundException.class})
+  ResponseEntity<Object> handleTechnicianNotFoundException(TechnicianNotFoundException e) {
     HttpStatus status = HttpStatus.NOT_FOUND;
     ApiException apiException = getApiException(status, e.getMessage());
     return new ResponseEntity<>(apiException, status);

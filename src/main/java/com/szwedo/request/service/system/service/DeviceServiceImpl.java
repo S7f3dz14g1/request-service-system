@@ -9,21 +9,25 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-class DeviceServiceImpl implements DeviceService{
+class DeviceServiceImpl implements DeviceService {
 
   private final DeviceRepository repository;
 
   @Override
   public DeviceDto getDeviceById(Long id) {
-      return repository.findById(id).stream()
-          .map(deviceEntity -> DeviceDto.builder()
-              .id(deviceEntity.id())
-              .model(deviceEntity.model())
-              .destroys(deviceEntity.destroys())
-              .device_type(deviceEntity.device_type())
-              .build())
-          .findFirst()
-          .orElseThrow(()->new DeviceNotFoundException(id));
+    return repository.findById(id).stream()
+        .map(deviceEntity -> DeviceDto.builder()
+            .id(deviceEntity.id())
+            .model(deviceEntity.model())
+            .damages(deviceEntity.damages())
+            .device_type(deviceEntity.device_type())
+            .battery(deviceEntity.battery())
+            .password(deviceEntity.password())
+            .charger(deviceEntity.charger())
+            .orderid(deviceEntity.orderId())
+            .build())
+        .findFirst()
+        .orElseThrow(() -> new DeviceNotFoundException(id));
   }
 
   @Override

@@ -29,10 +29,14 @@ class DeviceControllerTest {
     //given
     long deviceId=1L;
     DeviceDto dto = DeviceDto.builder()
-        .id(1L)
+        .id(deviceId)
         .device_type("type")
+        .damages("dest")
+        .battery(true)
+        .charger(true)
+        .password("")
+        .orderid(1L)
         .model("model")
-        .destroys("destroys")
         .build();
     //when
     when(service.getDeviceById(deviceId)).thenReturn(dto);
@@ -46,15 +50,23 @@ class DeviceControllerTest {
     ArgumentCaptor<DeviceEntity> argumentCaptor=ArgumentCaptor.forClass(DeviceEntity.class);
     DeviceRequest dto = DeviceRequest.builder()
         .device_type("type")
+        .damages("dest")
+        .battery(true)
+        .charger(true)
+        .password("")
+        .orderId(1L)
         .model("model")
-        .destroys("destroys")
         .build();
     //when
     controller.addDevice(dto);
     //then
     verify(service).addDevice(argumentCaptor.capture());
     assertEquals(argumentCaptor.getValue().device_type(),"type");
-    assertEquals(argumentCaptor.getValue().destroys(),"destroys");
+    assertEquals(argumentCaptor.getValue().damages(),"dest");
     assertEquals(argumentCaptor.getValue().model(),"model");
+    assertEquals(argumentCaptor.getValue().battery(),true);
+    assertEquals(argumentCaptor.getValue().charger(),true);
+    assertEquals(argumentCaptor.getValue().password(),"");
+    assertEquals(argumentCaptor.getValue().orderId(),1L);
   }
 }

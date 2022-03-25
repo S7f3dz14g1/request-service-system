@@ -24,8 +24,12 @@ public class DeviceController {
   public void addDevice(@Valid @RequestBody DeviceRequest device) {
     service.addDevice(DeviceEntity.builder()
         .device_type(device.device_type())
-        .destroys(device.destroys())
+        .damages(device.damages())
         .model(device.model())
+        .battery(device.battery())
+        .charger(device.charger())
+        .password(device.password())
+        .orderId(device.orderId())
         .build());
   }
 }

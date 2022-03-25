@@ -9,6 +9,5 @@ public record UserDao(long id,
 ) {
   @Builder
   public UserDao {
-
   }
 }

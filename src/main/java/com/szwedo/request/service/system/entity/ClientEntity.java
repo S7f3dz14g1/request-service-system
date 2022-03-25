@@ -2,12 +2,14 @@ package com.szwedo.request.service.system.entity;
 
 import lombok.Builder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
+@Table("client")
 public record ClientEntity(@Id Long id,
-                            String firstName,
-                            String lastName,
-                            String email,
-                            Long phone) {
+                           String firstname,
+                           String lastname,
+                           String email,
+                           Long phone) {
 
   @Builder
   public ClientEntity {

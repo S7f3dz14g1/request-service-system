@@ -3,7 +3,7 @@ package com.szwedo.request.service.system.service;
 import com.szwedo.request.service.system.dao.ClientRepository;
 import com.szwedo.request.service.system.entity.ClientEntity;
 import com.szwedo.request.service.system.exception.ClientNotFoundException;
-import com.szwedo.request.service.system.model.ClientDto;
+import com.szwedo.request.service.system.model.ClientDao;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -40,7 +40,7 @@ class UserDetailsServiceImplTest {
   public void should_return_userDetails_when_userDetails_exists(){
     //give
     long userId=1L;
-    ClientDto expectedResult= ClientDto.builder()
+    ClientDao expectedResult= ClientDao.builder()
         .id(userId)
         .firstName("imie")
         .lastName("naziwsko")
@@ -49,8 +49,8 @@ class UserDetailsServiceImplTest {
         .build();
     ClientEntity entity= ClientEntity.builder()
         .id(userId)
-        .firstName("imie")
-        .lastName("naziwsko")
+        .firstname("imie")
+        .lastname("naziwsko")
         .phone(123456789L)
         .email("mail")
         .build();
@@ -64,8 +64,8 @@ class UserDetailsServiceImplTest {
   public void should_add_new_userDetails(){
     //given
     ClientEntity entity= ClientEntity.builder()
-        .firstName("imie")
-        .lastName("naziwsko")
+        .firstname("imie")
+        .lastname("naziwsko")
         .phone(123456789L)
         .email("mail")
         .build();
@@ -74,8 +74,8 @@ class UserDetailsServiceImplTest {
     service.addUserDetails(entity);
     //then
     verify(repository).save(argument.capture());
-    assertEquals(entity.firstName(),argument.getValue().firstName());
-    assertEquals(entity.lastName(),argument.getValue().lastName());
+    assertEquals(entity.firstname(),argument.getValue().firstname());
+    assertEquals(entity.lastname(),argument.getValue().lastname());
     assertEquals(entity.phone(),argument.getValue().phone());
     assertEquals(entity.email(),argument.getValue().email());
   }

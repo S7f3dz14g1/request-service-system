@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS Client(
     id    SERIAL    PRIMARY    KEY,
-    firs_name    varchar(30) not null,
-    last_name varchar(250) not null,
+    firstname    varchar(30) not null,
+    lastname varchar(250) not null,
     email varchar (30) not null,
     phone numeric(9)not null
     );
@@ -21,9 +21,9 @@ INSERT INTO Users values (2, 'MieczyslawG', 'password123', 'ADMIN');
 
 CREATE TABLE IF NOT EXISTS Invoice(
     id    SERIAL    PRIMARY    KEY,
-    price    numeric(6,2) NOT NULL,
-    tax numeric(3) not null,
-    discount numeric(6,2) not null
+    price    numeric(6,2) ,
+    tax numeric(3) ,
+    discount numeric(6,2)
     );
 
 INSERT INTO Invoice values (1, 500, 23, 0);
@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS Orders(
     id    SERIAL    PRIMARY    KEY,
     status    varchar(30) not null,
     details varchar(250) not null,
-    invoiceId SERIAL not null,
-    technicianId SERIAL not null,
+    invoiceId SERIAL ,
+    technicianId SERIAL ,
     clientId SERIAL not null,
     createDate TIMESTAMP not null,
     editedDate timestamp ,
@@ -49,7 +49,8 @@ CREATE TABLE IF NOT EXISTS Orders(
              references Client(id)
     );
 
-INSERT INTO Orders values (1, 'FINISHED', 'Problem z matrycą', 1,1,1,'2022-01-02','2022-01-09');
+INSERT INTO Orders(id,status,details,invoiceId,technicianId,clientId,createDate,editedDate)
+values (1, 'FINISHED', 'Problem z matrycą', 1,1,1,'2022-01-02','2022-01-09');
 INSERT INTO Orders values (2, 'DURING DIAGNOSIS', 'Laser nie działa', 2,1,2,'2022-02-08');
 
 CREATE TABLE IF NOT EXISTS Device
@@ -57,17 +58,17 @@ CREATE TABLE IF NOT EXISTS Device
     id    SERIAL    PRIMARY    KEY,
     device_type    VARCHAR(30) NOT NULL,
     model VARCHAR(100),
-    demages VARCHAR(200),
-    batery boolean not null,
+    damages VARCHAR(200),
+    battery boolean not null,
     charger boolean not null,
     password varchar(30),
-    order_id SERIAL,
+    orderid SERIAL,
     constraint fk_order
-        foreign key(order_id)
+        foreign key(orderid)
              references Orders(id)
     );
 
-INSERT INTO Device(id,device_type,model,demages,batery,charger,password,order_id)
+INSERT INTO Device(id,device_type,model,damages,battery,charger,password,orderid)
             values (1, 'PC', 'Pavilion g6', 'Zarysowany ekran',true,true,'pass',1);
-INSERT INTO Device(id,device_type,model,demages,batery,charger,order_id)
+INSERT INTO Device(id,device_type,model,damages,battery,charger,orderid)
             values (2, 'Myszka', 'Steel Series Rival 3', 'Brak',false ,false ,2);

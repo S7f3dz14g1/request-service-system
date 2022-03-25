@@ -1,7 +1,7 @@
 package com.szwedo.request.service.system.controller;
 
 import com.szwedo.request.service.system.entity.ClientEntity;
-import com.szwedo.request.service.system.model.ClientDto;
+import com.szwedo.request.service.system.model.ClientDao;
 import com.szwedo.request.service.system.service.ClientService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,8 +33,8 @@ class ClientControllerTest {
         .email("mail")
         .build();
     ClientEntity expectedResult = ClientEntity.builder()
-        .firstName("imie")
-        .lastName("naziwsko")
+        .firstname("imie")
+        .lastname("naziwsko")
         .phone(123456789L)
         .email("mail")
         .build();
@@ -43,8 +43,8 @@ class ClientControllerTest {
     //then
     verify(service).addUserDetails(argumentCaptor.capture());
     assertEquals(expectedResult.email(), argumentCaptor.getValue().email());
-    assertEquals(expectedResult.firstName(), argumentCaptor.getValue().firstName());
-    assertEquals(expectedResult.lastName(), argumentCaptor.getValue().lastName());
+    assertEquals(expectedResult.firstname(), argumentCaptor.getValue().firstname());
+    assertEquals(expectedResult.lastname(), argumentCaptor.getValue().lastname());
     assertEquals(expectedResult.phone(), argumentCaptor.getValue().phone());
   }
 
@@ -52,7 +52,7 @@ class ClientControllerTest {
   public void should_get_user_details_by_id() {
     //given
     long userId = 1L;
-    ClientDto dto = ClientDto.builder()
+    ClientDao dto = ClientDao.builder()
         .id(userId)
         .firstName("imie")
         .lastName("naziwsko")

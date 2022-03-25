@@ -7,5 +7,5 @@ public interface InvoiceService {
 
   InvoiceDao getInvoiceById(Long id);
 
-  void addDevice(InvoiceEntity device);
+  void updateInvoice(InvoiceEntity device);
 }

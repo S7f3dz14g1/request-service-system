@@ -33,9 +33,9 @@ class InvoiceControllerTest {
         .price(10.0)
         .build();
     //when
-    controller.addInvoice(request);
+    controller.updateInvoice(request);
     //then
-    verify(service).addDevice(argumentCaptor.capture());
+    verify(service).updateInvoice(argumentCaptor.capture());
     assertEquals(request.discount(), argumentCaptor.getValue().discount());
     assertEquals(request.tax(), argumentCaptor.getValue().tax());
     assertEquals(request.price(), argumentCaptor.getValue().price());

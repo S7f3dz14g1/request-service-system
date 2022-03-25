@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
   private final UsersRepository repository;
 
@@ -22,13 +22,13 @@ public class UserServiceImpl implements UserService{
   public UserDao getUserById(long id) {
     return repository.findById(id)
         .stream()
-        .map(user->UserDao.builder()
+        .map(user -> UserDao.builder()
             .id(user.id())
             .nick(user.nick())
             .password(user.password())
             .status(user.status())
             .build())
         .findFirst()
-        .orElseThrow(()->new UserNotFoundException(id));
+        .orElseThrow(() -> new UserNotFoundException(id));
   }
 }
