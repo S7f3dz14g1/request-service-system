@@ -93,6 +93,7 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
         .device_type(deviceEntity.device_type())
         .damages(deviceEntity.damages())
         .model(deviceEntity.model())
+        .orderid(deviceEntity.orderId())
         .build();
   }
 }

@@ -7,6 +7,7 @@ import com.szwedo.request.service.system.entity.DeviceEntity;
 import com.szwedo.request.service.system.entity.InvoiceEntity;
 import com.szwedo.request.service.system.entity.OrderEntity;
 import com.szwedo.request.service.system.exception.OrderNotFoundException;
+import com.szwedo.request.service.system.exception.TechnicianNotFoundException;
 import com.szwedo.request.service.system.exception.UserNotFoundException;
 import com.szwedo.request.service.system.model.OrderDao;
 import lombok.AllArgsConstructor;
@@ -18,11 +19,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
-  public final OrderRepository orderRepository;
-  public final UsersRepository usersRepository;
-  public final ClientRepository clientRepository;
-  public final DeviceRepository deviceRepository;
-  public final InvoiceRepository invoiceRepository;
+  private final OrderRepository orderRepository;
+  private final UsersRepository usersRepository;
+  private final ClientRepository clientRepository;
+  private final DeviceRepository deviceRepository;
+  private final InvoiceRepository invoiceRepository;
 
   @Override
   public void changeStatus(Long orderId, String status) {
@@ -80,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
       if (usersRepository.findById(technicianId).isPresent()) {
         orderRepository.setTechnician(orderId, technicianId);
       } else {
-        throw new UserNotFoundException(technicianId);
+        throw new TechnicianNotFoundException(technicianId);
       }
     } else {
       throw new OrderNotFoundException(orderId);

@@ -27,8 +27,8 @@ class ClientControllerTest {
     //given
     ArgumentCaptor<ClientEntity> argumentCaptor = ArgumentCaptor.forClass(ClientEntity.class);
     ClientRequest request = ClientRequest.builder()
-        .firstName("imie")
-        .lastName("naziwsko")
+        .firstname("imie")
+        .lastname("naziwsko")
         .phone(123456789L)
         .email("mail")
         .build();

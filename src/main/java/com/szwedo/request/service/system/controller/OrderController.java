@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
 
   private final OrderService orderService;
-  private final OrderDetailsService orderParticularService;
+  private final OrderDetailsService orderDetailsService;
 
   @PutMapping("/invoice/")
   public void setInvoice(@RequestParam("orderId") Long orderId,
@@ -39,7 +39,7 @@ public class OrderController {
 
   @GetMapping("/details/{id}")
   public OrderDetailsDao getOrderDetails(@PathVariable("id") Long orderId) {
-    return orderParticularService.getOrderParticular(orderId);
+    return orderDetailsService.getOrderParticular(orderId);
   }
 
   @PutMapping("/technician/")
