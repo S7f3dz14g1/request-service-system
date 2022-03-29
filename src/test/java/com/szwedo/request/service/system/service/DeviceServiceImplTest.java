@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -29,6 +30,7 @@ public class DeviceServiceImplTest {
   public void should_return_device_when_device_exists() {
     //given
     long deviceId = 1L;
+    UUID uuid=UUID.randomUUID();
     DeviceDto expectedDevice = DeviceDto.builder()
         .id(deviceId)
         .device_type("type")
@@ -36,7 +38,7 @@ public class DeviceServiceImplTest {
         .battery(true)
         .charger(true)
         .password("")
-        .orderid(1L)
+        .orderid(uuid)
         .model("model")
         .build();
     DeviceEntity entity = DeviceEntity.builder()
@@ -46,7 +48,7 @@ public class DeviceServiceImplTest {
         .battery(true)
         .charger(true)
         .password("")
-        .orderId(1L)
+        .orderId(uuid)
         .model("model")
         .build();
     //when
@@ -78,7 +80,7 @@ public class DeviceServiceImplTest {
         .battery(true)
         .charger(true)
         .password("")
-        .orderId(1L)
+        .orderId(UUID.randomUUID())
         .model("model")
         .build();
     //when

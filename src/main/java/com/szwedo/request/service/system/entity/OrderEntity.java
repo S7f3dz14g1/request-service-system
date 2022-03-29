@@ -7,9 +7,10 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Table("orders")
-public record OrderEntity(@Id Long id,
+public record OrderEntity(@Id UUID id,
                           String status,
                           String details,
                           @Column("invoiceid")

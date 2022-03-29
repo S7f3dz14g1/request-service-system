@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -40,7 +41,7 @@ class OrderServiceImplTest {
   @Test
   public void should_throw_OrderNotFoundException_when_order_does_not_exist() {
     //given
-    Long orderId = 1L;
+    UUID orderId = UUID.randomUUID();
     Long invoiceId = 1L;
     Long technicianId = 1L;
     String status = "status";
@@ -64,7 +65,7 @@ class OrderServiceImplTest {
   @Test
   public void should_throw_TechnicianNotFoundException_when_technician_does_not_exist() {
     //given
-    Long orderId = 1L;
+    UUID orderId = UUID.randomUUID();
     Long technicianId = 1L;
     //when
     when(orderRepository.findById(orderId)).thenReturn(Optional.of(
@@ -80,25 +81,25 @@ class OrderServiceImplTest {
   @Test
   public void should_change_status_when_order_exists() {
     //given
-    ArgumentCaptor<Long> orderArgument = ArgumentCaptor.forClass(Long.class);
+    ArgumentCaptor<UUID> orderArgument = ArgumentCaptor.forClass(UUID.class);
     ArgumentCaptor<String> statusArgument = ArgumentCaptor.forClass(String.class);
-    long order = 1L;
+    UUID orderId = UUID.randomUUID();
     String status = "status";
     //when
-    when(orderRepository.findById(order)).thenReturn(Optional.of(OrderEntity.builder().build()));
-    service.changeStatus(order, status);
+    when(orderRepository.findById(orderId)).thenReturn(Optional.of(OrderEntity.builder().build()));
+    service.changeStatus(orderId, status);
     //then
     verify(orderRepository).changeStatus(orderArgument.capture(), statusArgument.capture());
-    assertEquals(order, orderArgument.getValue());
+    assertEquals(orderId, orderArgument.getValue());
     assertEquals(status, statusArgument.getValue());
   }
 
   @Test
   public void should_set_invoice_id_when_order_exists() {
     //given
-    ArgumentCaptor<Long> orderArgument = ArgumentCaptor.forClass(Long.class);
+    ArgumentCaptor<UUID> orderArgument = ArgumentCaptor.forClass(UUID.class);
     ArgumentCaptor<Long> invoiceArgument = ArgumentCaptor.forClass(Long.class);
-    long order = 1L;
+    UUID order = UUID.randomUUID();
     long invoice = 1L;
     //when
     when(orderRepository.findById(order)).thenReturn(Optional.of(OrderEntity.builder().build()));
@@ -112,7 +113,7 @@ class OrderServiceImplTest {
   @Test
   public void should_return_order_when_order_exists() {
     //given
-    Long orderId = 1L;
+    UUID orderId = UUID.randomUUID();
     OrderDao expectedResult = OrderDao.builder().build();
     //when
     when(orderRepository.findById(orderId)).thenReturn(Optional.of(OrderEntity.builder().build()));
@@ -123,17 +124,18 @@ class OrderServiceImplTest {
   @Test
   public void should_set_technician_id_when_order_and_technician_exist() {
     //given
-    ArgumentCaptor<Long> orderArgument = ArgumentCaptor.forClass(Long.class);
+    ArgumentCaptor<UUID> orderArgument = ArgumentCaptor.forClass(UUID.class);
     ArgumentCaptor<Long> technicianArgument = ArgumentCaptor.forClass(Long.class);
-    long order = 1L;
+    UUID uuid = UUID.randomUUID();
+    long userId=1L;
     long technician = 1L;
     //when
-    when(orderRepository.findById(order)).thenReturn(Optional.of(OrderEntity.builder().build()));
-    when(usersRepository.findById(order)).thenReturn(Optional.of(UserEntity.builder().build()));
-    service.setTechnician(order, technician);
+    when(orderRepository.findById(uuid)).thenReturn(Optional.of(OrderEntity.builder().build()));
+    when(usersRepository.findById(userId)).thenReturn(Optional.of(UserEntity.builder().build()));
+    service.setTechnician(uuid, technician);
     //then
     verify(orderRepository).setTechnician(orderArgument.capture(), technicianArgument.capture());
-    assertEquals(order, orderArgument.getValue());
+    assertEquals(uuid, orderArgument.getValue());
     assertEquals(technician, technicianArgument.getValue());
   }
 
@@ -196,7 +198,7 @@ class OrderServiceImplTest {
             .charger(false)
             .battery(false)
             .model("model")
-            .orderid(1L)
+            .orderid(UUID.randomUUID())
             .build()))
         .build();
   }

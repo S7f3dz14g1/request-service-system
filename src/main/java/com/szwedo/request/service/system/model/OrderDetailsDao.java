@@ -4,8 +4,9 @@ import lombok.Builder;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
-public record OrderDetailsDao(Long id,
+public record OrderDetailsDao(UUID id,
                               String status,
                               String details,
                               InvoiceDao invoiceDao,

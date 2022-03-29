@@ -4,6 +4,7 @@ import lombok.Builder;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 record DeviceRequest(@NotBlank String device_type,
                      String model,
@@ -11,7 +12,7 @@ record DeviceRequest(@NotBlank String device_type,
                      @NotNull boolean battery,
                      @NotNull boolean charger,
                      @NotBlank String password,
-                     @NotNull Long orderId) {
+                     @NotNull UUID orderId) {
 
   @Builder
   public DeviceRequest {

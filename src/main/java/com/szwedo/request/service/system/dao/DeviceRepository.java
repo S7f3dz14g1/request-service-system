@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public interface DeviceRepository extends
     CrudRepository<DeviceEntity, Long> {
-  List<DeviceEntity> getDeviceEntitiesByOrderId(@NotNull Long orderid);
+  List<DeviceEntity> getDeviceEntitiesByOrderId(@NotNull UUID orderid);
 }

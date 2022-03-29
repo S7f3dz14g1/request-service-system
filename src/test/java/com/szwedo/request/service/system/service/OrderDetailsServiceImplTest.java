@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -38,7 +39,7 @@ class OrderDetailsServiceImplTest {
   @Test
   public void should_throw_OrderNotFoundException_when_product_does_not_exist() {
     //given
-    long orderId = 1L;
+    UUID orderId = UUID.randomUUID();
     //when
     when(orderRepository.findById(orderId)).thenReturn(Optional.empty());
     //then
@@ -50,26 +51,26 @@ class OrderDetailsServiceImplTest {
   @Test
   public void should_return_order_details_when_order_exists() {
     //given
-    long orderId = 1L;
+    UUID uuid = UUID.randomUUID();
     OrderDetailsDao expectedResult = OrderDetailsDao.builder()
-        .id(orderId)
+        .id(uuid)
         .clientDto(ClientDao.builder().id(1L).build())
         .technicianName("nameT")
-        .deviceDtoList(List.of(DeviceDto.builder().orderid(orderId).build()))
+        .deviceDtoList(List.of(DeviceDto.builder().orderid(uuid).build()))
         .invoiceDao(InvoiceDao.builder().id(1L).build())
         .build();
     //when
-    when(orderRepository.findById(orderId)).thenReturn(Optional.of(
+    when(orderRepository.findById(uuid)).thenReturn(Optional.of(
         OrderEntity.builder()
-            .id(orderId)
+            .id(uuid)
             .clientId(1L)
             .technicianId(1L)
             .invoiceId(1L)
             .technicianId(1L)
             .build()
     ));
-    when(deviceRepository.getDeviceEntitiesByOrderId(orderId)).thenReturn(
-        List.of(DeviceEntity.builder().orderId(orderId).build()));
+    when(deviceRepository.getDeviceEntitiesByOrderId(uuid)).thenReturn(
+        List.of(DeviceEntity.builder().orderId(uuid).build()));
     when(invoiceRepository.findById(1L)).thenReturn(
         Optional.of(InvoiceEntity.builder().id(1L).build()));
     when(userRepository.findById(1L)).thenReturn(
@@ -77,6 +78,6 @@ class OrderDetailsServiceImplTest {
     when(clientRepository.findById(1L)).thenReturn(
         Optional.of(ClientEntity.builder().id(1L).build()));
     //then
-    assertEquals(expectedResult, orderDetailsService.getOrderParticular(orderId));
+    assertEquals(expectedResult, orderDetailsService.getOrderParticular(uuid));
   }
 }

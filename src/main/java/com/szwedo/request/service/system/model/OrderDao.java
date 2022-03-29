@@ -3,8 +3,9 @@ package com.szwedo.request.service.system.model;
 import lombok.Builder;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
-public record OrderDao(Long id,
+public record OrderDao(UUID id,
                        String status,
                        String details,
                        Long invoiceId,

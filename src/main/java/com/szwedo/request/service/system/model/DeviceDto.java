@@ -2,6 +2,8 @@ package com.szwedo.request.service.system.model;
 
 import lombok.Builder;
 
+import java.util.UUID;
+
 public record DeviceDto(Long id,
                         String device_type,
                         String model,
@@ -9,7 +11,7 @@ public record DeviceDto(Long id,
                         boolean battery,
                         boolean charger,
                         String password,
-                        Long orderid) {
+                        UUID orderid) {
 
   @Builder
   public DeviceDto {

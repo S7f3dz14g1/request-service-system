@@ -35,8 +35,11 @@ values ( 500, 23, 0);
 INSERT INTO Invoice(price,tax,discount )
 values ( 300, 23, 10);
 
+CREATE EXTENSION pgcrypto;
+SELECT gen_random_uuid();
+
 CREATE TABLE IF NOT EXISTS Orders(
-    id    SERIAL    PRIMARY    KEY,
+    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     status    varchar(30) not null,
     details varchar(250) not null,
     invoiceId SERIAL ,
@@ -69,13 +72,13 @@ CREATE TABLE IF NOT EXISTS Device
     battery boolean not null,
     charger boolean not null,
     password varchar(30),
-    orderid SERIAL,
+    orderid uuid,
     constraint fk_order
         foreign key(orderid)
              references Orders(id)
     );
 
 INSERT INTO Device(device_type,model,damages,battery,charger,password,orderid)
-            values ( 'PC', 'Pavilion g6', 'Zarysowany ekran',true,true,'pass',1);
+            values ( 'PC', 'Pavilion g6', 'Zarysowany ekran',true,true,'pass',(select id from orders where clientId=1));
 INSERT INTO Device(device_type,model,damages,battery,charger,orderid)
-            values ( 'Myszka', 'Steel Series Rival 3', 'Brak',false ,false ,2);
+            values ( 'Myszka', 'Steel Series Rival 3', 'Brak',false ,false ,(select id from orders where clientId=2));

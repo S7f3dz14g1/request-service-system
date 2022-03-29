@@ -7,6 +7,8 @@ import com.szwedo.request.service.system.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/order")
@@ -16,19 +18,19 @@ public class OrderController {
   private final OrderDetailsService orderDetailsService;
 
   @PutMapping("/invoice/")
-  public void setInvoice(@RequestParam("orderId") Long orderId,
+  public void setInvoice(@RequestParam("orderId") UUID orderId,
                          @RequestParam("invoiceId") Long invoiceId) {
     orderService.setInvoiceId(orderId, invoiceId);
   }
 
   @PutMapping("/status/")
-  public void changeStatus(@RequestParam(value = "orderId") Long orderId,
+  public void changeStatus(@RequestParam(value = "orderId") UUID orderId,
                            @RequestParam(value = "status") String status) {
     orderService.changeStatus(orderId, status);
   }
 
   @GetMapping("/{id}")
-  public OrderDao getOrderById(@PathVariable("id") Long orderId) {
+  public OrderDao getOrderById(@PathVariable("id") UUID orderId) {
     return orderService.getOrderById(orderId);
   }
 
@@ -38,12 +40,12 @@ public class OrderController {
   }
 
   @GetMapping("/details/{id}")
-  public OrderDetailsDao getOrderDetails(@PathVariable("id") Long orderId) {
+  public OrderDetailsDao getOrderDetails(@PathVariable("id") UUID orderId) {
     return orderDetailsService.getOrderParticular(orderId);
   }
 
   @PutMapping("/technician/")
-  public void setTechnician(@RequestParam(value = "orderId") Long orderId,
+  public void setTechnician(@RequestParam(value = "orderId") UUID orderId,
                             @RequestParam(value = "technicianId") Long technicianId) {
     orderService.setTechnician(orderId, technicianId);
   }

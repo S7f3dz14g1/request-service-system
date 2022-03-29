@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -31,8 +32,8 @@ class OrderControllerTest {
   public void should_set_invoice_in_the_order() {
     //given
     long invoiceId = 1L;
-    long orderId = 1L;
-    ArgumentCaptor<Long> argumentOrderId = ArgumentCaptor.forClass(Long.class);
+    UUID orderId = UUID.randomUUID();
+    ArgumentCaptor<UUID> argumentOrderId = ArgumentCaptor.forClass(UUID.class);
     ArgumentCaptor<Long> argumentInvoiceId = ArgumentCaptor.forClass(Long.class);
     //when
     controller.setInvoice(orderId,invoiceId);
@@ -46,9 +47,9 @@ class OrderControllerTest {
   public void should_change_status_in_the_order() {
     //given
     String status = "status";
-    long orderId = 1L;
+    UUID orderId = UUID.randomUUID();
     ArgumentCaptor<String> argumentStatus = ArgumentCaptor.forClass(String.class);
-    ArgumentCaptor<Long> argumentOrderId = ArgumentCaptor.forClass(Long.class);
+    ArgumentCaptor<UUID> argumentOrderId = ArgumentCaptor.forClass(UUID.class);
     //when
     controller.changeStatus(orderId, status);
     //then
@@ -60,7 +61,7 @@ class OrderControllerTest {
   @Test
   public void should_return_order_by_id() {
     //given
-    long orderId = 1L;
+    UUID orderId = UUID.randomUUID();
     OrderDao detailsDao = OrderDao.builder()
         .id(orderId)
         .details("details")
@@ -101,7 +102,7 @@ class OrderControllerTest {
   @Test
   public void should_return_order_details() {
     //given
-    long orderId = 1L;
+    UUID orderId = UUID.randomUUID();
     OrderDetailsDao detailsDao = createOrderDetailsDao(orderId);
     //when
     when(orderDetailsService.getOrderParticular(orderId)).thenReturn(detailsDao);
@@ -109,7 +110,7 @@ class OrderControllerTest {
     assertEquals(controller.getOrderDetails(orderId), detailsDao);
   }
 
-  private OrderDetailsDao createOrderDetailsDao(long orderId) {
+  private OrderDetailsDao createOrderDetailsDao(UUID orderId) {
     return OrderDetailsDao.builder()
         .id(orderId)
         .details("details")
@@ -126,9 +127,9 @@ class OrderControllerTest {
   @Test
   public void should_set_technician_to_the_order() {
     //given
-    long orderId = 1L;
+    UUID orderId = UUID.randomUUID();
     long technicianId = 1L;
-    ArgumentCaptor<Long> argumentOrder = ArgumentCaptor.forClass(Long.class);
+    ArgumentCaptor<UUID> argumentOrder = ArgumentCaptor.forClass(UUID.class);
     ArgumentCaptor<Long> argumentTechnician = ArgumentCaptor.forClass(Long.class);
     //when
     controller.setTechnician(orderId, technicianId);

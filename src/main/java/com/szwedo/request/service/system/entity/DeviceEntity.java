@@ -6,6 +6,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Table("device")
 public record DeviceEntity(@Id Long id,
@@ -16,7 +17,7 @@ public record DeviceEntity(@Id Long id,
                            @NotNull boolean charger,
                            @NotNull String password,
                            @Column("orderid")
-                           @NotNull Long orderId) {
+                           @NotNull UUID orderId) {
 
   @Builder
   public DeviceEntity {

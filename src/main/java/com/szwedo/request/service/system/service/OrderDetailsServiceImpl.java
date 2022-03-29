@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,11 +26,11 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
   private final DeviceRepository deviceRepository;
 
   @Override
-  public OrderDetailsDao getOrderParticular(Long orderId) {
+  public OrderDetailsDao getOrderParticular(UUID orderId) {
     Optional<OrderEntity> optionalOrderEntity = orderRepository.findById(orderId);
     if (optionalOrderEntity.isPresent()) {
       List<DeviceEntity> deviceEntityList =
-          deviceRepository.getDeviceEntitiesByOrderId(optionalOrderEntity.get().id());
+          deviceRepository.getDeviceEntitiesByOrderId(orderId);
       InvoiceEntity invoiceEntity =
           invoiceRepository.findById(optionalOrderEntity.get().invoiceId())
               .orElse(InvoiceEntity.builder().build());
@@ -51,13 +52,13 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
 
   private OrderDetailsDao buildOrderParticularDao(OrderEntity orderEntity, List<DeviceEntity> deviceEntityList, InvoiceEntity invoiceEntity, UserEntity userEntity, ClientEntity clientEntity) {
     return OrderDetailsDao.builder()
-        .id(orderEntity.clientId())
+        .id(orderEntity.id())
         .status(orderEntity.status())
         .createdDate(orderEntity.createdate())
         .details(orderEntity.details())
         .editedDate(orderEntity.editeddate())
         .invoiceDao(buildInvoiceDao(invoiceEntity))
-        .technicianName(userEntity.nick())//valid
+        .technicianName(userEntity.nick())
         .clientDto(buildClientDao(clientEntity))
         .deviceDtoList(deviceEntityList.stream()
             .map(this::buildDeviceDao)

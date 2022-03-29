@@ -6,17 +6,19 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
-public interface OrderRepository extends CrudRepository<OrderEntity, Long> {
+public interface OrderRepository extends CrudRepository<OrderEntity, UUID> {
   @Modifying
   @Query(value = "UPDATE orders  SET  status = :Status WHERE id= :OrderId")
-  void changeStatus(Long OrderId, String Status);
+  void changeStatus(UUID OrderId, String Status);
 
   @Modifying
   @Query(value = "UPDATE orders  SET invoiceId = :orderId WHERE id= :orderId")
-  void setInvoiceId(Long orderId, Long invoiceId);
+  void setInvoiceId(UUID orderId, Long invoiceId);
 
   @Modifying
   @Query(value = "UPDATE  orders SET technicianId = :technicianId WHERE id= :orderId")
-  void setTechnician(Long orderId, Long technicianId);
+  void setTechnician(UUID orderId, Long technicianId);
 }

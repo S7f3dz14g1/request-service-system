@@ -8,12 +8,12 @@ import com.szwedo.request.service.system.entity.InvoiceEntity;
 import com.szwedo.request.service.system.entity.OrderEntity;
 import com.szwedo.request.service.system.exception.OrderNotFoundException;
 import com.szwedo.request.service.system.exception.TechnicianNotFoundException;
-import com.szwedo.request.service.system.exception.UserNotFoundException;
 import com.szwedo.request.service.system.model.OrderDao;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
   private final InvoiceRepository invoiceRepository;
 
   @Override
-  public void changeStatus(Long orderId, String status) {
+  public void changeStatus(UUID orderId, String status) {
     if (orderRepository.findById(orderId).isPresent()) {
       orderRepository.changeStatus(orderId, status);
     } else {
@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
-  public void setInvoiceId(Long orderId, Long invoiceId) {
+  public void setInvoiceId(UUID orderId, Long invoiceId) {
     if (orderRepository.findById(orderId).isPresent()) {
       orderRepository.setInvoiceId(orderId, invoiceId);
     } else {
@@ -76,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
-  public void setTechnician(Long orderId, Long technicianId) {
+  public void setTechnician(UUID orderId, Long technicianId) {
     if (orderRepository.findById(orderId).isPresent()) {
       if (usersRepository.findById(technicianId).isPresent()) {
         orderRepository.setTechnician(orderId, technicianId);
@@ -89,7 +89,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
-  public OrderDao getOrderById(Long orderId) {
+  public OrderDao getOrderById(UUID orderId) {
     return orderRepository.findById(orderId).stream()
         .map(e -> OrderDao.builder()
             .id(e.id())
