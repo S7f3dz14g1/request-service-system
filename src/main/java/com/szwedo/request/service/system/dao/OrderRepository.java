@@ -21,4 +21,8 @@ public interface OrderRepository extends CrudRepository<OrderEntity, UUID> {
   @Modifying
   @Query(value = "UPDATE  orders SET technicianId = :technicianId WHERE id= :orderId")
   void setTechnician(UUID orderId, Long technicianId);
+
+  @Modifying
+  @Query(value = "UPDATE  orders SET done_work = :doneWork WHERE id= :orderId")
+  void setDoneWork(UUID orderId, String doneWork);
 }

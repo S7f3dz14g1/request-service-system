@@ -127,7 +127,7 @@ class OrderServiceImplTest {
     ArgumentCaptor<UUID> orderArgument = ArgumentCaptor.forClass(UUID.class);
     ArgumentCaptor<Long> technicianArgument = ArgumentCaptor.forClass(Long.class);
     UUID uuid = UUID.randomUUID();
-    long userId=1L;
+    long userId = 1L;
     long technician = 1L;
     //when
     when(orderRepository.findById(uuid)).thenReturn(Optional.of(OrderEntity.builder().build()));
@@ -137,6 +137,22 @@ class OrderServiceImplTest {
     verify(orderRepository).setTechnician(orderArgument.capture(), technicianArgument.capture());
     assertEquals(uuid, orderArgument.getValue());
     assertEquals(technician, technicianArgument.getValue());
+  }
+
+  @Test
+  public void should_set_doneWork_when_order_exist() {
+    //given
+    ArgumentCaptor<UUID> orderArgument = ArgumentCaptor.forClass(UUID.class);
+    ArgumentCaptor<String> doneWorkArgument = ArgumentCaptor.forClass(String.class);
+    UUID uuid = UUID.randomUUID();
+    String doneWork = "doneWork";
+    //when
+    when(orderRepository.findById(uuid)).thenReturn(Optional.of(OrderEntity.builder().build()));
+    service.setDoneWork(uuid, doneWork);
+    //then
+    verify(orderRepository).setDoneWork(orderArgument.capture(), doneWorkArgument.capture());
+    assertEquals(uuid, orderArgument.getValue());
+    assertEquals(doneWork, doneWorkArgument.getValue());
   }
 
   @Test

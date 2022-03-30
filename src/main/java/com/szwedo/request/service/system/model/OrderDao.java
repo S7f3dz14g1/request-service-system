@@ -12,6 +12,7 @@ public record OrderDao(UUID id,
                        Long technicianId,
                        LocalDate created,
                        LocalDate edited,
+                       String doneWork,
                        Long clientId) {
   @Builder
   public OrderDao {

@@ -70,6 +70,7 @@ public class OrderServiceImpl implements OrderService {
         .details(request.details())
         .invoiceId(invoiceEntity.id())
         .technicianId(1L)
+        .doneWork(request.doneWork())
         .status("Przyjęte")
         .clientId(clientEntity.id())
         .build());
@@ -83,6 +84,15 @@ public class OrderServiceImpl implements OrderService {
       } else {
         throw new TechnicianNotFoundException(technicianId);
       }
+    } else {
+      throw new OrderNotFoundException(orderId);
+    }
+  }
+
+  @Override
+  public void setDoneWork(UUID orderId, String doneWork) {
+    if (orderRepository.findById(orderId).isPresent()) {
+      orderRepository.setDoneWork(orderId, doneWork);
     } else {
       throw new OrderNotFoundException(orderId);
     }

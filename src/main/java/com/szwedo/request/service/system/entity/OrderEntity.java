@@ -17,6 +17,8 @@ public record OrderEntity(@Id UUID id,
                           Long invoiceId,
                           @Column("technicianid")
                           Long technicianId,
+                          @Column("done_work")
+                          String doneWork,
                           @CreatedDate LocalDate createdate,
                           @CreatedDate LocalDate editeddate,
                           @Column("clientid")

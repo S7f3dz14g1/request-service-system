@@ -14,6 +14,7 @@ public record OrderDetailsDao(UUID id,
                               List<DeviceDto> deviceDtoList,
                               ClientDao clientDto,
                               LocalDate createdDate,
+                              String doneWork,
                               LocalDate editedDate) {
   @Builder
   public OrderDetailsDao {

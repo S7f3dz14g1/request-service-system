@@ -14,5 +14,7 @@ public interface OrderService {
 
   void setTechnician(UUID orderId, Long technicianId);
 
+  void setDoneWork(UUID orderId, String doneWork);
+
   OrderDao getOrderById(UUID orderId);
 }

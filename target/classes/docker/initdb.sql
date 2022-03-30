@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Users(
     UNIQUE(nick)
     );
 INSERT INTO Users (nick,password,status)
-values ('AdamP', 'password123', 'ADMIN');
+values ('AdamP', 'password123', 'TECHNICIAN');
 INSERT INTO Users (nick,password,status)
 values ('MieczyslawG', 'password123', 'ADMIN');
 
@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS Orders(
     details varchar(250) not null,
     invoiceId SERIAL ,
     technicianId SERIAL ,
+    done_work varchar(250),
     clientId SERIAL not null,
     createDate TIMESTAMP not null,
     editedDate timestamp ,

@@ -58,6 +58,7 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
         .details(orderEntity.details())
         .editedDate(orderEntity.editeddate())
         .invoiceDao(buildInvoiceDao(invoiceEntity))
+        .doneWork(orderEntity.doneWork())
         .technicianName(userEntity.nick())
         .clientDto(buildClientDao(clientEntity))
         .deviceDtoList(deviceEntityList.stream()

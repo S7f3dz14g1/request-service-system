@@ -138,4 +138,19 @@ class OrderControllerTest {
     assertEquals(orderId, argumentOrder.getValue());
     assertEquals(technicianId, argumentTechnician.getValue());
   }
+
+  @Test
+  public void should_set_doneWork_to_the_order() {
+    //given
+    UUID orderId = UUID.randomUUID();
+    String  doneWork = "Wymieniona matryca";
+    ArgumentCaptor<UUID> argumentOrder = ArgumentCaptor.forClass(UUID.class);
+    ArgumentCaptor<String> argumentDoneWork = ArgumentCaptor.forClass(String.class);
+    //when
+    controller.setDoneWork(orderId, doneWork);
+    //then
+    verify(orderService).setDoneWork(argumentOrder.capture(), argumentDoneWork.capture());
+    assertEquals(orderId, argumentOrder.getValue());
+    assertEquals(doneWork, argumentDoneWork.getValue());
+  }
 }

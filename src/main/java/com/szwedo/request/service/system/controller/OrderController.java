@@ -49,4 +49,10 @@ public class OrderController {
                             @RequestParam(value = "technicianId") Long technicianId) {
     orderService.setTechnician(orderId, technicianId);
   }
+
+  @PutMapping("/doneWork/")
+  public void setDoneWork(@RequestParam(value = "orderId") UUID orderId,
+                          @RequestParam(value = "doneWork") String doneWork) {
+    orderService.setDoneWork(orderId, doneWork);
+  }
 }
