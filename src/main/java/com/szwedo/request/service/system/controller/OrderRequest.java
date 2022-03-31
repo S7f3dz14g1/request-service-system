@@ -17,7 +17,6 @@ public record OrderRequest(@NotBlank String firstname,
                            @Max(value = 9)
                            Long phone,
                            List<DeviceDto> devices,
-                           String doneWork,
                            @NotBlank String details) {
 
   @Builder

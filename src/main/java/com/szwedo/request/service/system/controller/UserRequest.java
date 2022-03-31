@@ -5,8 +5,7 @@ import lombok.Builder;
 import javax.validation.constraints.NotBlank;
 
 public record UserRequest(@NotBlank String nick,
-                          @NotBlank String password,
-                          @NotBlank Long userDetailsId) {
+                          @NotBlank String password) {
   @Builder
   public UserRequest {
   }

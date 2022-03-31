@@ -70,7 +70,6 @@ public class OrderServiceImpl implements OrderService {
         .details(request.details())
         .invoiceId(invoiceEntity.id())
         .technicianId(1L)
-        .doneWork(request.doneWork())
         .status("Przyjęte")
         .clientId(clientEntity.id())
         .build());
